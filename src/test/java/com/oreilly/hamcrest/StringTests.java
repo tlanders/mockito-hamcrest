@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static com.oreilly.hamcrest.IsUpperCase.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
@@ -55,7 +56,21 @@ public class StringTests {
     public void emptyOrNulls() {
         String s = "";
         assertThat(s, is(emptyString()));
+        assertThat(null, is(not(emptyString())));
+
         assertThat(s, is(emptyOrNullString()));
         assertThat(null, is(emptyOrNullString()));
+        assertThat("", is(emptyOrNullString()));
+    }
+
+    @Test
+    public void testIsUpperCase() {
+        assertThat("ABC", is(upperCase()));
+        assertThat("AB C D ", is(upperCase()));
+
+        assertThat("abc", is(not(upperCase())));
+        assertThat("AbC", is(not(upperCase())));
+
+        assertThat("ABC", is(not(upperCase())));
     }
 }
